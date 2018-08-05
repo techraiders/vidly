@@ -1,3 +1,4 @@
+const config = require('config');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
@@ -21,6 +22,16 @@ app.use('/api/movies', movies);
 app.use('/api/rentals', rentals);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+
+
+if (!config.get('jwtPrivateKey')) {
+  console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+  
+  console.log("run 'export vidly_jwtPrivateKey=mySecretKey' on your MAC terminal to set this jwtPrivateKey");
+
+  console.log("or run 'set vidly_jwtPrivateKey=mySecretKey' on your windows terminal to set this jwtPrivateKey");
+  process.exit(1);
+}
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
