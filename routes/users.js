@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const { User, validate } = require('../models/user');
@@ -20,7 +22,11 @@ router.post('/', async (req, res) => {
   user.password = await bcrypt.hash(user.password, salt);
 
   await user.save();
-  res.send(_.pick(user, ['_id', 'email', 'name']));
+
+  const token = jwt.sign({_id: user._id}, config.get('jwtPrivateKey'));
+
+  // convention is header name should be prefixed with x- but you can set any arbitary name.
+  res.header('x-auth-token', token).send(_.pick(user, ['_id', 'email', 'name']));
 });
 
 module.exports = router;
