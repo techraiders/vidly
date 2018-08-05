@@ -1,3 +1,4 @@
+const error = require('./middleware/error');
 const config = require('config');
 const mongoose = require('mongoose');
 const Joi = require('joi');
@@ -22,6 +23,8 @@ app.use('/api/movies', movies);
 app.use('/api/rentals', rentals);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+
+app.use(error);
 
 
 if (!config.get('jwtPrivateKey')) {
