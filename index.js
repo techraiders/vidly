@@ -16,9 +16,20 @@ const app = express();
 process.on('uncaughtException', (ex) => {
   console.log('WE GOT AN UNCAUGHT EXCEPTION: ');
   console.log(ex.message, ex);
+  process.exit(1); // process is in uncleaned state, so should exit and restart.
 });
 
-throw new Error('Something failed before connecting to MongoDB');
+process.on('unhandledRejection', ex => {
+  console.log('WE GOT AN UNHANDLED PROMISE REJECTION: ');
+  console.log(ex.message, ex);
+  process.exit(1); // process is in uncleaned state, so should exit and restart.
+});
+
+// const p = Promise.reject(new Error('Rejected promise threw error'));
+// p.then(() => console.log('DONE'));
+
+//throw new Error('Something failed before connecting to MongoDB');
+
 
 mongoose.connect('mongodb://localhost/vidly')
   .then(() => console.log('Connected to MongoDB...'))
