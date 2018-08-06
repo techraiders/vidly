@@ -27,7 +27,5 @@ process.on('unhandledRejection', ex => {
 //throw new Error('Something failed before connecting to MongoDB');
 
 
-
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
