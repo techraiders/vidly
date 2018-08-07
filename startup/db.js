@@ -7,3 +7,8 @@ module.exports = function () {
   .then(() => console.log(`Connected to ${db}...`));
   //.catch(err => console.error('Could not connect to MongoDB...'));
 };
+
+/*
+  Run 'export NODE_ENV=envName' to change the environment on your MAC
+  Run 'set NODE_ENV=envName' to change the environment on your PC
+*/
