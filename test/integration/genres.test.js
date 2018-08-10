@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const request = require('supertest');
 const {Genre} = require('../../models/genre');
 const {User} = require('../../models/user');
@@ -7,6 +8,10 @@ let server;
 describe('/api/genres', () => {
   beforeEach(() => {
     server = require('../../index');
+    // make this func async
+    // await mongoose.connection.collection.genres.drop(() => {
+      // ready to run the next test
+    // });
   });
 
   afterEach(async () => {
@@ -87,6 +92,7 @@ describe('/api/genres', () => {
       await exec();
       const genre = await Genre.find({name});
       expect(genre).not.toBeNull();
+      //expect(genre.isNew).toBe(false);
     });
 
     it('should return the genre if it is valid', async () => {
