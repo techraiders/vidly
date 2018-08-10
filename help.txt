@@ -36,3 +36,11 @@ Model Instance Remove Methods:
 
 **instanceVariable.validateSync() : This method is available to validate model value against its schema of a model.
 
+
+
+
+**Running single changed test case:
+  it.only('test name', () => {});
+
+**Excluding single test case:
+  xit('test name', () => {});
