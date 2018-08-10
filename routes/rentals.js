@@ -42,6 +42,17 @@ router.post('/', async (req, res) => {
   });
  
   try {
+    /* We can use:
+       Promise.all([promise1, promise2])
+        .then(() => {
+          // to execute task3 when promise1, and promise2 both has resolved.
+        });
+
+      or Promise.race([promise1, promise2])
+          .then(() => {
+            // to execute task3 when any of the above promise has resolved.
+          });
+    */
     new Fawn.Task()
       .save('rentals', rental)
       .update('movies', {
