@@ -7,6 +7,19 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    /* required: [true, 'Name is required.']
+    required: function () {
+      this.isAdmin;
+    },
+    validate: {
+      isAsync: true,
+      validator: (name) => {
+        // do some async work, and return true or false when result is ready.
+        if (valid) return true;
+      },
+      message: 'Name must pass this custom validator'
+    }
+    */
     minlength: 5,
     maxlength: 50
   },
