@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// mongoose.Promise = global.Promise; plug in your own promise library like bluebird, q, or ES6 native promise into mongoose, because mongoose's default promise library is deprecated.
 const config = require('config');
 
 module.exports = function () {
