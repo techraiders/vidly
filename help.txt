@@ -1,0 +1,38 @@
+Model Class Update Methods:
+  1. update : Finds all the records that matches first query object and updates all using 2nd update object.
+    
+    Example:
+      User.update({name: 'Joe'}, {name: 'Alex'});
+
+  2. findOneAndUpdate:      
+      Example:
+        User.findOneAndUpdate({name: 'Joe'}, {name: 'Alex'}); 
+  
+  3. findByIdAndUpdate:
+      Example:
+        User.findByIdAndUpdate('4k5l3jkh9494', {name: 'Alex'});
+
+
+Model Instance Update Methods: 
+  1. update : when you have to update a couple of properties of an object and save immediately in one statement. 
+
+  Example:
+    instanceVariable.update({name: 'name1', phone: '1234'});
+
+  2. 'set' and 'save' : call set multiple times to update multiple properties and then call save at the end.
+
+  Example:
+    instanceVariable.set('property', 'value');
+    instanceVariable.save();
+
+Model Class Remove Methods:
+  1. remove
+  2. findOneAndRemove
+  3. findByIdAndRemove
+
+Model Instance Remove Methods:
+  1. remove
+
+
+**instanceVariable.validateSync() : This method is available to validate model value against its schema of a model.
+
