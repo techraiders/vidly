@@ -5,7 +5,10 @@ const config = require('config');
 module.exports = function () {
   const db = config.get('db');
   mongoose.connect(db)
-  .then(() => console.log(`Connected to ${db}...`));
+  .then(() => console.log(`Connected to ${db}...`),
+  (error) => {
+    console.log(`Could not connect to Database ${db}`);
+  });
   //.catch(err => console.error('Could not connect to MongoDB...'));
 };
 
