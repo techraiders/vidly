@@ -44,3 +44,6 @@ Model Instance Remove Methods:
 
 **Excluding single test case:
   xit('test name', () => {});
+  
+  
+Use JSON Placeholder: https://jsonplaceholder.typicode.com/
