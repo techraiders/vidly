@@ -77,9 +77,9 @@ userSchema.post('save', async function () {
   
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
-          console.log('Unable to send user registration email.');
+          console.log('Unable to send user registration email.', err);
         } else {
-          console.log('User registration email was sent');
+          console.log(`User registration email was sent to ${this.email}`);
         }
       });
     } else {
