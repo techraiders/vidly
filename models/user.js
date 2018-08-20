@@ -2,6 +2,7 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -45,6 +46,49 @@ userSchema.methods.generateAuthToken = function () {
 };
 
 const User = mongoose.model('User', userSchema);
+
+userSchema.post('save', async function () {
+  const admin = await User.findOne({isAdmin: true});
+  const pwd = config.get('adminEmailPassword');
+
+  if (pwd) {
+    if(admin) {  
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        auth: {
+          user: `${admin.email}`,
+          pass: pwd
+        }
+      });
+    
+      const mailOptions = {
+        from: `Navneet Prakash <mr.navneet19@gmail.com`,
+        to: `${this.email}`,
+        subject: `Nodemailer Test`,
+        html: `<div>
+          <h1> HTML RESPONSE </h1>
+          <p> Dear ${this.name}, Thank you for registering an account with vidly movie rental system.
+          
+          Your user id: ${this._id}
+          </p>
+        </div>`
+      };
+  
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.log('Unable to send user registration email.');
+        } else {
+          console.log('User registration email was sent');
+        }
+      });
+    } else {
+      console.log('There is no admin account available to send user registration email from, Please register an admin');
+    }
+  } else {
+    console.log('adminEmailPassword ENV variable is not set to send user registration email, please run \'export adminEmailPassword=yourPassword\' to set this environment varialble');
+  }
+});
 
 function validateUser (user) {
   const schema = {
