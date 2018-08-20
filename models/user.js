@@ -65,9 +65,9 @@ userSchema.post('save', async function () {
       const mailOptions = {
         from: `Navneet Prakash <mr.navneet19@gmail.com`,
         to: `${this.email}`,
-        subject: `Nodemailer Test`,
+        subject: `User Registration Successfully`,
         html: `<div>
-          <h1> HTML RESPONSE </h1>
+          <h1> User Registration Successful </h1>
           <p> Dear ${this.name}, Thank you for registering an account with vidly movie rental system.
           
           Your user id: ${this._id}
