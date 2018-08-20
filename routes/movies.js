@@ -1,12 +1,19 @@
 const { Movie, validate } = require('../models/movie'),
   { Genre } = require('../models/genre'),
   mongoose = require('mongoose'),
+  multer = require('multer'),
+  upload = multer({dest: 'public/uploads/images'});
   express = require('express'),
   router = express.Router();
 
 router.get('/', async (req, res) => {
   const movies = await Movie.find().sort('title');
   res.send(movies);
+});
+
+router.post('/banner', upload.single('banner'), (req, res) => {
+  console.log('req body is: ', req.body);
+  console.log('banner is: ', req.file);
 });
 
 router.post('/', async (req, res) => {
