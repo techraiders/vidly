@@ -2,7 +2,35 @@ const { Movie, validate } = require('../models/movie'),
   { Genre } = require('../models/genre'),
   mongoose = require('mongoose'),
   multer = require('multer'),
-  upload = multer({dest: 'public/uploads/images'});
+  storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      // multer executes these function whenever a new file is received
+      cb(null, './public/uploads/images');
+    },
+    filename: (req, file, cb) => {
+      // multer executes these function whenever a new file is received
+      cb(null, file.originalname);
+      // cb(null, new Date().toISOString() + file.originalname);
+    }
+  });
+
+  const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/png'];
+    if (allowedFileTypes.includes(file.mimetype)) {
+      cb(null, true); // accepts a file
+    } else {
+      cb(null, false); // reject a file
+    }
+  };
+
+  // upload = multer({dest: 'public/uploads/images'});
+  upload = multer({storage: storage,
+    limits: {
+      fileSize: 1024 * 1024 * 5,
+    },
+    fileFilter: fileFilter
+  });
+  
   express = require('express'),
   router = express.Router();
 
